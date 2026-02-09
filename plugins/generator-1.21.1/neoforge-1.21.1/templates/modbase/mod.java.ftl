@@ -66,7 +66,7 @@ import org.apache.logging.log4j.Logger;
 	<#-- Wait procedure block support below -->
 	private static final Collection<Tuple<Runnable, Integer>> workQueue = new ConcurrentLinkedQueue<>();
 
-	public static void queueServerWork(int tick, Runnable action) {
+	public synchronized static void queueServerWork(int tick, Runnable action) {
 		if (Thread.currentThread().getThreadGroup() == SidedThreadGroups.SERVER)
 			workQueue.add(new Tuple<>(action, tick));
 	}
@@ -83,4 +83,5 @@ import org.apache.logging.log4j.Logger;
 	}
 
 }
+
 <#-- @formatter:on -->
